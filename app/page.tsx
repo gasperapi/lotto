@@ -50,11 +50,11 @@ export default function Home() {
 
       {/* Deposit / Withdraw Buttons */}
       <div className="grid grid-cols-2 gap-4 w-full">
-        <Button className="w-full h-14 text-white bg-gradient-to-r from-green-600 to-green-700 dark:bg-green-700 font-semibold text-lg shadow-md hover:scale-[1.02] transition-transform" radius="sm">
+        <Button as={Link} href="/deposit" className="w-full h-14 text-white bg-gradient-to-r from-green-600 to-green-700 dark:bg-green-700 font-semibold text-lg shadow-md hover:scale-[1.02] transition-transform" radius="sm">
           <DepositIcon size={24} className="mr-2" />
           ฝากเงิน
         </Button>
-        <Button className="w-full h-14 text-white bg-gradient-to-r from-red-800 to-red-900 dark:bg-red-900 font-semibold text-lg shadow-md hover:scale-[1.02] transition-transform" radius="sm">
+        <Button as={Link} href="/withdraw" className="w-full h-14 text-white bg-gradient-to-r from-red-800 to-red-900 dark:bg-red-900 font-semibold text-lg shadow-md hover:scale-[1.02] transition-transform" radius="sm">
           <WithdrawIcon size={24} className="mr-2" />
           ถอนเงิน
         </Button>
@@ -62,11 +62,11 @@ export default function Home() {
 
       {/* Large Featured Buttons */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-        <Button className="w-full h-24 bg-gradient-to-br from-white to-default-100 dark:from-zinc-800 dark:to-black border border-default-200 dark:border-green-900 text-foreground dark:text-white flex flex-col items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all" radius="sm">
+        <Button as={Link} href="/lotto" className="w-full h-24 bg-gradient-to-br from-white to-default-100 dark:from-zinc-800 dark:to-black border border-default-200 dark:border-green-900 text-foreground dark:text-white flex flex-col items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all" radius="sm">
           <TouchIcon size={32} className="text-default-700 dark:text-white" />
           <span className="text-xl font-bold">แทงหวย</span>
         </Button>
-        <Button className="w-full h-24 bg-gradient-to-br from-white to-default-100 dark:from-zinc-800 dark:to-black border border-default-200 dark:border-green-900 text-foreground dark:text-white flex flex-col items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all" radius="sm">
+        <Button as={Link} href="/casino" className="w-full h-24 bg-gradient-to-br from-white to-default-100 dark:from-zinc-800 dark:to-black border border-default-200 dark:border-green-900 text-foreground dark:text-white flex flex-col items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all" radius="sm">
           <CasinoIcon size={32} className="text-default-700 dark:text-white" />
           <span className="text-xl font-bold">เกมส์ กีฬา คาสิโน</span>
         </Button>
@@ -75,17 +75,19 @@ export default function Home() {
       {/* Grid Menu Items */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
         {[
-          { icon: TouchIcon, label: "แทงหวย" },
-          { icon: TargetIcon, label: "หวยยี่กี" },
-          { icon: ListIcon, label: "หวยชุด" },
-          { icon: TrophyIcon, label: "ผลรางวัล" },
-          { icon: FileIcon, label: "โพยหวย" },
-          { icon: CalculatorIcon, label: "สร้างเลขชุด" },
-          { icon: UsersIcon, label: "แนะนำเพื่อน" },
-          { icon: MailIcon, label: "ติดต่อแอดมิน" },
+          { icon: TouchIcon, label: "แทงหวย", href: "/lotto" },
+          { icon: TargetIcon, label: "หวยยี่กี", href: "/lotto/yeekee" },
+          { icon: ListIcon, label: "หวยชุด", href: "/lotto/set" },
+          { icon: TrophyIcon, label: "ผลรางวัล", href: "/rewards" },
+          { icon: FileIcon, label: "โพยหวย", href: "/lotto/poy" },
+          { icon: CalculatorIcon, label: "สร้างเลขชุด", href: "/lotto/create-set" },
+          { icon: UsersIcon, label: "แนะนำเพื่อน", href: "/affiliate" },
+          { icon: MailIcon, label: "ติดต่อแอดมิน", href: "/contact" },
         ].map((item, index) => (
           <Button
             key={index}
+            as={Link}
+            href={item.href}
             className="w-full h-20 bg-content1 dark:bg-zinc-900 text-foreground dark:text-white font-semibold flex flex-col gap-2 shadow-sm hover:shadow-md hover:bg-content2 transition-all border border-transparent dark:border-opacity-10 dark:border-white"
             radius="sm"
           >
@@ -97,10 +99,10 @@ export default function Home() {
 
       {/* Bottom Action Buttons */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-        <Button className="w-full h-12 bg-content1 dark:bg-white text-foreground dark:text-black font-semibold flex items-center justify-center gap-2 shadow-sm hover:bg-content2 dark:hover:bg-gray-200 transition-colors border border-default-200 dark:border-transparent" radius="sm">
+        <Button as={Link} href="/transactions" className="w-full h-12 bg-content1 dark:bg-white text-foreground dark:text-black font-semibold flex items-center justify-center gap-2 shadow-sm hover:bg-content2 dark:hover:bg-gray-200 transition-colors border border-default-200 dark:border-transparent" radius="sm">
           <span className="text-lg">↕</span> รายการฝาก - ถอน
         </Button>
-        <Button className="w-full h-12 bg-content1 dark:bg-white text-foreground dark:text-black font-semibold flex items-center justify-center gap-2 shadow-sm hover:bg-content2 dark:hover:bg-gray-200 transition-colors border border-default-200 dark:border-transparent" radius="sm">
+        <Button as={Link} href="/financial-report" className="w-full h-12 bg-content1 dark:bg-white text-foreground dark:text-black font-semibold flex items-center justify-center gap-2 shadow-sm hover:bg-content2 dark:hover:bg-gray-200 transition-colors border border-default-200 dark:border-transparent" radius="sm">
           <ChartIcon size={20} className="text-foreground dark:text-black" /> รายงานการเงิน
         </Button>
       </div>
