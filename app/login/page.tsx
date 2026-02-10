@@ -26,7 +26,7 @@ export default function LoginPage() {
                 />
             </div>
 
-            <Card className="w-full max-w-sm p-4">
+            <Card className="w-full max-w-lg p-4">
                 <CardHeader className="flex flex-col gap-1 items-center justify-center pb-4">
                     <h1 className="text-xl font-bold">เข้าสู่ระบบ</h1>
                 </CardHeader>

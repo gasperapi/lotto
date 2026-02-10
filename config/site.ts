@@ -1,69 +1,49 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "Next.js + HeroUI",
-  description: "Make beautiful websites regardless of your design experience.",
+  name: "Lotto",
+  description: "ระบบหวยออนไลน์",
   navItems: [
     {
-      label: "Home",
+      label: "หน้าหลัก",
       href: "/",
     },
     {
-      label: "Docs",
-      href: "/docs",
+      label: "ตรวจรางวัล",
+      href: "/check-reward",
     },
     {
-      label: "Pricing",
-      href: "/pricing",
-    },
-    {
-      label: "Blog",
-      href: "/blog",
-    },
-    {
-      label: "About",
-      href: "/about",
+      label: "ซื้อหวย",
+      href: "/buy-lotto",
     },
   ],
   navMenuItems: [
     {
-      label: "Profile",
-      href: "/profile",
+      label: "หน้าหลัก",
+      href: "/",
     },
     {
-      label: "Dashboard",
-      href: "/dashboard",
+      label: "ตรวจรางวัล",
+      href: "/check-reward",
     },
     {
-      label: "Projects",
-      href: "/projects",
+      label: "ซื้อหวย",
+      href: "/buy-lotto",
     },
     {
-      label: "Team",
-      href: "/team",
+      label: "เข้าสู่ระบบ",
+      href: "/login",
     },
     {
-      label: "Calendar",
-      href: "/calendar",
-    },
-    {
-      label: "Settings",
-      href: "/settings",
-    },
-    {
-      label: "Help & Feedback",
-      href: "/help-feedback",
-    },
-    {
-      label: "Logout",
-      href: "/logout",
+      label: "สมัครสมาชิก",
+      href: "/register",
     },
   ],
   links: {
-    github: "https://github.com/heroui-inc/heroui",
-    twitter: "https://twitter.com/hero_ui",
+    github: "https://github.com",
+    twitter: "https://twitter.com",
     docs: "https://heroui.com",
-    discord: "https://discord.gg/9b6yyZKmH4",
-    sponsor: "https://patreon.com/jrgarciadev",
+    discord: "https://discord.gg",
+    sponsor: "https://patreon.com",
   },
 };
