@@ -232,3 +232,20 @@ export const EyeSlashFilledIcon = (props: IconSvgProps) => (
     />
   </svg>
 );
+
+export const LineIcon = (props: IconSvgProps) => (
+  <svg
+    aria-hidden="true"
+    focusable="false"
+    height="1em"
+    role="presentation"
+    viewBox="0 0 24 24"
+    width="1em"
+    {...props}
+  >
+    <path
+      d="M21.16 6.26C19.78 4.6 17.65 3.39 15.24 2.8 14.18 2.54 13.09 2.41 12 2.41c-3.79 0-7.31 1.51-9.76 4.14C.94 8.08.25 10.02.25 12.06c0 1.9.62 3.73 1.8 5.25.99 1.27 2.28 2.26 3.74 2.88.35.15.58.49.58.87v2.09c0 .77.86 1.22 1.48.78l3.66-2.61c.14-.1.3-.15.47-.15h.02c.01 0 .01 0 .02.01 3.52 1.41 7.69.58 10.28-2.06 2.3-2.36 3.69-5.63 3.69-9.02 0-1.42-.25-2.79-.73-4.08z"
+      fill="currentColor"
+    />
+  </svg>
+);

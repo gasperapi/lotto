@@ -8,6 +8,7 @@ import { Providers } from "./providers";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
+import NextImage from "next/image";
 
 export const metadata: Metadata = {
   title: {
@@ -47,16 +48,25 @@ export default function RootLayout({
             <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
               {children}
             </main>
+
+            <Link
+              isExternal
+              href="https://line.me/R/ti/p/@lotto888"
+              title="ติดต่อเราผ่าน Line"
+              className="fixed bottom-4 left-4 z-50 flex h-14 w-14 animate-bounce items-center justify-center rounded-full bg-[#06C755] text-white shadow-lg transition-transform hover:scale-110 hover:shadow-xl"
+            >
+              <NextImage
+                src="/LINE_Brand_icon.png"
+                alt="Line"
+                width={32}
+                height={32}
+              />
+            </Link>
+
             <footer className="w-full flex items-center justify-center py-3">
-              <Link
-                isExternal
-                className="flex items-center gap-1 text-current"
-                href="https://heroui.com?utm_source=next-app-template"
-                title="heroui.com homepage"
-              >
-                <span className="text-default-600">Powered by</span>
-                <p className="text-primary">HeroUI</p>
-              </Link>
+              <span className="text-default-500 text-sm">
+                Copyright © 2022-2023 All rights reserved.
+              </span>
             </footer>
           </div>
         </Providers>
