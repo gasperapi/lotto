@@ -1,7 +1,7 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "Lotto",
+  name: "Lotto888",
   description: "ระบบหวยออนไลน์",
   navItems: [
     {
