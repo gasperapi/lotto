@@ -20,29 +20,29 @@ import {
 
 export default function Home() {
   return (
-    <section className="flex flex-col items-center justify-center gap-4 py-4 md:py-8 w-full max-w-4xl mx-auto">
+    <section className="flex flex-col items-center justify-center gap-4 py-4 md:py-8 w-full max-w-4xl mx-auto px-4">
       {/* Search/Info Bar */}
-      <div className="w-full bg-zinc-800 rounded-lg p-2 mb-4 flex items-center justify-between text-zinc-400 text-sm px-4 overflow-hidden">
+      <div className="w-full bg-default-100 dark:bg-zinc-800 rounded-lg p-2 mb-4 flex items-center justify-between text-default-500 dark:text-zinc-400 text-sm px-4 overflow-hidden shadow-sm">
         <div className="animate-marquee w-full">
           <span>มีด889 เว็บหวยที่จ่ายดีที่สุด ฝาก-ถอนไว</span>
         </div>
       </div>
 
       {/* Status Card */}
-      <Card className="w-full bg-black border border-green-800">
-        <CardBody className="flex flex-col items-center justify-center py-6 relative">
-          <div className="absolute top-4 left-4 flex items-center gap-2 text-white text-sm">
+      <Card className="w-full bg-content1 dark:bg-black border border-default-200 dark:border-green-800 shadow-md">
+        <CardBody className="flex flex-col items-center justify-center py-8 relative">
+          <div className="absolute top-4 left-4 flex items-center gap-2 text-default-600 dark:text-white text-sm font-medium">
             <WalletIcon size={20} />
             <span>เงินคงเหลือ</span>
           </div>
-          <div className="absolute top-4 right-4 bg-zinc-800 rounded-full px-3 py-1 text-xs text-zinc-300">
+          <div className="absolute top-4 right-4 bg-default-100 dark:bg-zinc-800 rounded-full px-3 py-1 text-xs text-default-500 dark:text-zinc-300 font-medium">
             สถานะ : ปกติ
           </div>
 
-          <div className="mt-8 text-5xl font-bold text-[#e1b96d]">
+          <div className="mt-8 text-5xl font-bold text-[#b8860b] dark:text-[#e1b96d] drop-shadow-sm">
             5000.00
           </div>
-          <div className="mt-2 text-zinc-400 text-sm">
+          <div className="mt-2 text-default-500 dark:text-zinc-400 text-sm font-medium">
             0813333321 (เจลาโต้)
           </div>
         </CardBody>
@@ -50,11 +50,11 @@ export default function Home() {
 
       {/* Deposit / Withdraw Buttons */}
       <div className="grid grid-cols-2 gap-4 w-full">
-        <Button className="w-full h-14 text-white bg-green-700 font-semibold text-lg" radius="sm">
+        <Button className="w-full h-14 text-white bg-gradient-to-r from-green-600 to-green-700 dark:bg-green-700 font-semibold text-lg shadow-md hover:scale-[1.02] transition-transform" radius="sm">
           <DepositIcon size={24} className="mr-2" />
           ฝากเงิน
         </Button>
-        <Button className="w-full h-14 text-white bg-red-900 font-semibold text-lg" radius="sm">
+        <Button className="w-full h-14 text-white bg-gradient-to-r from-red-800 to-red-900 dark:bg-red-900 font-semibold text-lg shadow-md hover:scale-[1.02] transition-transform" radius="sm">
           <WithdrawIcon size={24} className="mr-2" />
           ถอนเงิน
         </Button>
@@ -62,62 +62,46 @@ export default function Home() {
 
       {/* Large Featured Buttons */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-        <Button className="w-full h-24 bg-gradient-to-b from-zinc-800 to-black border border-green-900 text-white flex flex-col items-center justify-center gap-2" radius="sm">
-          <TouchIcon size={32} />
+        <Button className="w-full h-24 bg-gradient-to-br from-white to-default-100 dark:from-zinc-800 dark:to-black border border-default-200 dark:border-green-900 text-foreground dark:text-white flex flex-col items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all" radius="sm">
+          <TouchIcon size={32} className="text-default-700 dark:text-white" />
           <span className="text-xl font-bold">แทงหวย</span>
         </Button>
-        <Button className="w-full h-24 bg-gradient-to-b from-zinc-800 to-black border border-green-900 text-white flex flex-col items-center justify-center gap-2" radius="sm">
-          <CasinoIcon size={32} />
+        <Button className="w-full h-24 bg-gradient-to-br from-white to-default-100 dark:from-zinc-800 dark:to-black border border-default-200 dark:border-green-900 text-foreground dark:text-white flex flex-col items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all" radius="sm">
+          <CasinoIcon size={32} className="text-default-700 dark:text-white" />
           <span className="text-xl font-bold">เกมส์ กีฬา คาสิโน</span>
         </Button>
       </div>
 
       {/* Grid Menu Items */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
-        <Button className="w-full h-20 bg-white text-black font-semibold flex flex-col gap-1 shadow-sm hover:bg-gray-100" radius="sm">
-          <TouchIcon size={24} className="text-black" />
-          แทงหวย
-        </Button>
-        <Button className="w-full h-20 bg-white text-black font-semibold flex flex-col gap-1 shadow-sm hover:bg-gray-100" radius="sm">
-          <div className="relative">
-            <TargetIcon size={24} className="text-black" />
-          </div>
-          หวยยี่กี
-        </Button>
-        <Button className="w-full h-20 bg-white text-black font-semibold flex flex-col gap-1 shadow-sm hover:bg-gray-100" radius="sm">
-          <ListIcon size={24} className="text-black" />
-          หวยชุด
-        </Button>
-        <Button className="w-full h-20 bg-white text-black font-semibold flex flex-col gap-1 shadow-sm hover:bg-gray-100" radius="sm">
-          <TrophyIcon size={24} className="text-black" />
-          ผลรางวัล
-        </Button>
-
-        <Button className="w-full h-20 bg-white text-black font-semibold flex flex-col gap-1 shadow-sm hover:bg-gray-100" radius="sm">
-          <FileIcon size={24} className="text-black" />
-          โพยหวย
-        </Button>
-        <Button className="w-full h-20 bg-white text-black font-semibold flex flex-col gap-1 shadow-sm hover:bg-gray-100" radius="sm">
-          <CalculatorIcon size={24} className="text-black" />
-          สร้างเลขชุด
-        </Button>
-        <Button className="w-full h-20 bg-white text-black font-semibold flex flex-col gap-1 shadow-sm hover:bg-gray-100" radius="sm">
-          <UsersIcon size={24} className="text-black" />
-          แนะนำเพื่อน
-        </Button>
-        <Button className="w-full h-20 bg-white text-black font-semibold flex flex-col gap-1 shadow-sm hover:bg-gray-100" radius="sm">
-          <MailIcon size={24} className="text-black" />
-          ติดต่อแอดมิน
-        </Button>
+        {[
+          { icon: TouchIcon, label: "แทงหวย" },
+          { icon: TargetIcon, label: "หวยยี่กี" },
+          { icon: ListIcon, label: "หวยชุด" },
+          { icon: TrophyIcon, label: "ผลรางวัล" },
+          { icon: FileIcon, label: "โพยหวย" },
+          { icon: CalculatorIcon, label: "สร้างเลขชุด" },
+          { icon: UsersIcon, label: "แนะนำเพื่อน" },
+          { icon: MailIcon, label: "ติดต่อแอดมิน" },
+        ].map((item, index) => (
+          <Button
+            key={index}
+            className="w-full h-20 bg-content1 dark:bg-zinc-900 text-foreground dark:text-white font-semibold flex flex-col gap-2 shadow-sm hover:shadow-md hover:bg-content2 transition-all border border-transparent dark:border-opacity-10 dark:border-white"
+            radius="sm"
+          >
+            <item.icon size={24} className="text-default-600 dark:text-white" />
+            {item.label}
+          </Button>
+        ))}
       </div>
 
       {/* Bottom Action Buttons */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full text-black font-semibold">
-        <Button className="w-full h-12 bg-white text-black flex items-center justify-center gap-2 shadow-sm hover:bg-gray-100" radius="sm">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+        <Button className="w-full h-12 bg-content1 dark:bg-white text-foreground dark:text-black font-semibold flex items-center justify-center gap-2 shadow-sm hover:bg-content2 dark:hover:bg-gray-200 transition-colors border border-default-200 dark:border-transparent" radius="sm">
           <span className="text-lg">↕</span> รายการฝาก - ถอน
         </Button>
-        <Button className="w-full h-12 bg-white text-black flex items-center justify-center gap-2 shadow-sm hover:bg-gray-100" radius="sm">
-          <ChartIcon size={20} className="text-black" /> รายงานการเงิน
+        <Button className="w-full h-12 bg-content1 dark:bg-white text-foreground dark:text-black font-semibold flex items-center justify-center gap-2 shadow-sm hover:bg-content2 dark:hover:bg-gray-200 transition-colors border border-default-200 dark:border-transparent" radius="sm">
+          <ChartIcon size={20} className="text-foreground dark:text-black" /> รายงานการเงิน
         </Button>
       </div>
 

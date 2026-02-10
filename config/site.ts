@@ -9,12 +9,24 @@ export const siteConfig = {
       href: "/",
     },
     {
-      label: "ตรวจรางวัล",
-      href: "/check-reward",
+      label: "ผลรางวัล",
+      href: "/rewards",
     },
     {
-      label: "ซื้อหวย",
-      href: "/buy-lotto",
+      label: "เติมเงิน",
+      href: "/deposit",
+    },
+    {
+      label: "กระเป๋าตัง",
+      href: "/wallet",
+    },
+    {
+      label: "ติดต่อเรา",
+      href: "/contact",
+    },
+    {
+      label: "ผู้ใช้",
+      href: "/profile",
     },
   ],
   navMenuItems: [
@@ -23,12 +35,24 @@ export const siteConfig = {
       href: "/",
     },
     {
-      label: "ตรวจรางวัล",
-      href: "/check-reward",
+      label: "ผลรางวัล",
+      href: "/rewards",
     },
     {
-      label: "ซื้อหวย",
-      href: "/buy-lotto",
+      label: "เติมเงิน",
+      href: "/deposit",
+    },
+    {
+      label: "กระเป๋าตัง",
+      href: "/wallet",
+    },
+    {
+      label: "ติดต่อเรา",
+      href: "/contact",
+    },
+    {
+      label: "ผู้ใช้",
+      href: "/profile",
     },
     {
       label: "เข้าสู่ระบบ",
