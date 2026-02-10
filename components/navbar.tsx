@@ -40,7 +40,7 @@ export const Navbar = () => {
               <NextLink
                 className={clsx(
                   linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium",
+                  "data-[active=true]:text-success data-[active=true]:font-medium",
                 )}
                 color="foreground"
                 href={item.href}
@@ -81,7 +81,7 @@ export const Navbar = () => {
               <Link
                 color={
                   index === siteConfig.navMenuItems.length - 1 || index === siteConfig.navMenuItems.length - 2
-                    ? "primary"
+                    ? "success"
                     : "foreground"
                 }
                 href={item.href}
