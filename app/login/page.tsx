@@ -69,7 +69,7 @@ export default function LoginPage() {
                         variant="bordered"
                     />
                     <div className="flex justify-end">
-                        <a href="#" className="text-xs text-default-500 hover:text-success">ลืมรหัสผ่าน ?</a>
+                        <NextLink href="/forgot-password" className="text-xs text-default-500 hover:text-success">ลืมรหัสผ่าน ?</NextLink>
                     </div>
                     <div className="flex flex-col gap-2">
                         <Button color="success" className="w-full font-semibold text-white" size="lg">
