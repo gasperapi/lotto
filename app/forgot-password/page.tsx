@@ -3,241 +3,224 @@
 import React from "react";
 import Image from "next/image";
 import NextLink from "next/link";
-import { Card, CardBody, CardHeader } from "@heroui/card";
-import { Input } from "@heroui/input";
-import { Button } from "@heroui/button";
 
-import { InputOtp } from "@heroui/input-otp";
-import { EyeFilledIcon, EyeSlashFilledIcon } from "@/components/icons";
+const securityCode = "636655";
+
+function PasswordToggleIcon({ visible }: { visible: boolean }) {
+  return (
+    <svg
+      aria-hidden="true"
+      className="pointer-events-none h-5 w-5"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+    >
+      {visible ? (
+        <>
+          <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z" />
+          <circle cx="12" cy="12" r="2.5" />
+        </>
+      ) : (
+        <>
+          <path d="m3 3 18 18" />
+          <path d="M10.6 6.2A10.6 10.6 0 0 1 12 6c6.5 0 10 6 10 6a18.5 18.5 0 0 1-3.1 3.8" />
+          <path d="M6.2 6.2A18.6 18.6 0 0 0 2 12s3.5 6 10 6c1 0 2-.2 2.8-.5" />
+          <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" />
+        </>
+      )}
+    </svg>
+  );
+}
 
 export default function ForgotPasswordPage() {
-    const [step, setStep] = React.useState(0);
-    const [phone, setPhone] = React.useState("");
-    const [captcha, setCaptcha] = React.useState("");
-    const [otp, setOtp] = React.useState("");
-    const [password, setPassword] = React.useState("");
-    const [confirmPassword, setConfirmPassword] = React.useState("");
-    const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
-    const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = React.useState(false);
+  const [step, setStep] = React.useState<"verify" | "reset">("verify");
+  const [phone, setPhone] = React.useState("");
+  const [captcha, setCaptcha] = React.useState("");
+  const [otp, setOtp] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
+  const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = React.useState(false);
 
-    const [timeLeft, setTimeLeft] = React.useState(30);
-    const [canResend, setCanResend] = React.useState(false);
-    const [resendCount, setResendCount] = React.useState(0);
+  const canContinue = phone.length === 10 && captcha === securityCode;
+  const canReset = otp.length === 4 && password.length > 0 && password === confirmPassword;
 
-    const togglePasswordVisibility = () => setIsPasswordVisible(!isPasswordVisible);
-    const toggleConfirmPasswordVisibility = () => setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
+  const numericInput = (setter: (value: string) => void) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    if (/^\d*$/.test(value)) setter(value);
+  };
 
-    React.useEffect(() => {
-        let timer: NodeJS.Timeout;
-        if (step === 1 && timeLeft > 0) {
-            timer = setInterval(() => {
-                setTimeLeft((prev) => prev - 1);
-            }, 1000);
-        } else if (timeLeft === 0) {
-            setCanResend(true);
-        }
-        return () => clearInterval(timer);
-    }, [step, timeLeft]);
+  return (
+    <main className="fixed inset-0 z-40 min-h-screen overflow-y-auto bg-[#292929] px-5 py-12 text-white sm:px-8 sm:py-16">
+      <div className="mx-auto flex w-full max-w-[425px] flex-col items-center">
+        <NextLink
+          href="/"
+          aria-label="กลับสู่หน้าหลัก"
+          className="mb-12 block transition-transform hover:scale-[1.03] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4b9b32] focus-visible:ring-offset-4 focus-visible:ring-offset-[#292929] sm:mb-14"
+        >
+          <Image
+            src="/logo.png"
+            alt="LOTTO888"
+            width={132}
+            height={132}
+            priority
+            className="h-[132px] w-[132px] object-contain drop-shadow-[0_5px_8px_rgba(0,0,0,0.35)]"
+          />
+        </NextLink>
 
-    const handleResendOtp = () => {
-        if (resendCount < 3) {
-            setResendCount((prev) => prev + 1);
-            setTimeLeft(30);
-            setCanResend(false);
-            // Logic to resend OTP would go here
-        }
-    };
+        <nav className="mb-4 grid w-full grid-cols-2 gap-6" aria-label="บัญชีผู้ใช้">
+          <NextLink
+            href="/login"
+            className="rounded-lg bg-[#315b2a] px-4 py-3 text-center text-base font-medium text-white shadow-md shadow-black/25 transition-colors hover:bg-[#3a6b31]"
+          >
+            เข้าสู่ระบบ
+          </NextLink>
+          <NextLink
+            href="/register"
+            className="rounded-lg bg-[#315b2a] px-4 py-3 text-center text-base font-medium text-white shadow-md shadow-black/25 transition-colors hover:bg-[#3a6b31]"
+          >
+            สมัครสมาชิก
+          </NextLink>
+        </nav>
 
-    return (
-        <div className="flex flex-col items-center justify-center w-full gap-4">
-            <div className="flex flex-col items-center gap-2 mb-4">
-                <Image
-                    src="/logo.png"
-                    alt="Logo"
-                    width={150}
-                    height={150}
-                    className="object-contain"
+        <section className="w-full rounded-2xl bg-[#303030] p-4 shadow-[0_8px_18px_rgba(0,0,0,0.14)] sm:p-5">
+          {step === "verify" ? (
+            <form
+              className="flex flex-col gap-2"
+              onSubmit={(event) => {
+                event.preventDefault();
+                if (canContinue) setStep("reset");
+              }}
+            >
+              <h1 className="mb-2 text-center text-lg font-medium text-white">ตั้งรหัสผ่านใหม่</h1>
+              <label className="flex flex-col gap-1 text-base font-medium text-[#f3f3f3]">
+                เบอร์โทรศัพท์
+                <input
+                  required
+                  inputMode="numeric"
+                  maxLength={10}
+                  placeholder="เบอร์โทรศัพท์"
+                  type="text"
+                  value={phone}
+                  onChange={numericInput(setPhone)}
+                  className="h-14 w-full rounded bg-white px-4 text-center text-base text-zinc-900 outline-none placeholder:text-zinc-400 focus:ring-2 focus:ring-[#4b9b32]"
                 />
-            </div>
+              </label>
 
-            <div className="flex gap-4 mb-2 w-full max-w-lg">
-                <Button
-                    as={NextLink}
-                    href="/login"
-                    className="flex-1 font-semibold text-white bg-success-600 hover:bg-success-700"
-                    size="lg"
-                    radius="sm"
+              <div className="flex flex-col gap-1 pt-1">
+                <span className="text-base font-medium text-[#f3f3f3]">รหัสความปลอดภัย</span>
+                <div
+                  aria-label="รหัสความปลอดภัย 636655"
+                  className="relative flex h-14 items-center justify-center overflow-hidden rounded bg-white font-mono text-[28px] font-bold tracking-[0.18em] text-zinc-700"
                 >
-                    เข้าสู่ระบบ
-                </Button>
-                <Button
-                    as={NextLink}
-                    href="/register"
-                    className="flex-1 font-semibold text-white bg-success-600 hover:bg-success-700"
-                    size="lg"
-                    radius="sm"
-                >
-                    สมัครสมาชิก
-                </Button>
-            </div>
+                  <span className="relative z-10 -skew-x-6">{securityCode}</span>
+                  <span className="absolute h-px w-40 rotate-6 bg-zinc-700/70" />
+                  <span className="absolute h-px w-40 -rotate-6 bg-zinc-700/60" />
+                </div>
+                <input
+                  required
+                  inputMode="numeric"
+                  maxLength={6}
+                  placeholder="กรอกตัวเลขด้านบน"
+                  type="text"
+                  value={captcha}
+                  onChange={numericInput(setCaptcha)}
+                  className="h-14 w-full rounded bg-white px-4 text-center text-base text-zinc-900 outline-none placeholder:text-zinc-400 focus:ring-2 focus:ring-[#4b9b32]"
+                />
+              </div>
 
-            <Card className="w-full max-w-lg p-4 bg-content1">
-                <CardHeader className="flex flex-col gap-1 items-center justify-center pb-4">
-                    <h1 className="text-xl font-bold">ตั้งรหัสผ่านใหม่</h1>
-                </CardHeader>
-                <CardBody className="flex flex-col gap-4">
-                    {step === 0 ? (
-                        <>
-                            <Input
-                                isRequired
-                                color="success"
-                                label="เบอร์โทรศัพท์"
-                                placeholder="เบอร์โทรศัพท์"
-                                type="text"
-                                inputMode="numeric"
-                                maxLength={10}
-                                variant="bordered"
-                                value={phone}
-                                onValueChange={(value) => {
-                                    if (/^\d*$/.test(value)) {
-                                        setPhone(value);
-                                    }
-                                }}
-                            />
+              <button
+                type="submit"
+                disabled={!canContinue}
+                className="mt-1 h-12 w-full rounded bg-[#348424] text-base font-medium text-white shadow-md shadow-black/30 transition-colors enabled:hover:bg-[#3f972c] disabled:cursor-not-allowed disabled:bg-[#555555] disabled:text-zinc-400"
+              >
+                ถัดไป
+              </button>
+            </form>
+          ) : (
+            <form className="flex flex-col gap-3" onSubmit={(event) => event.preventDefault()}>
+              <h1 className="mb-1 text-center text-lg font-medium text-white">ยืนยันรหัสผ่านใหม่</h1>
+              <label className="flex flex-col gap-1 text-base font-medium text-[#f3f3f3]">
+                รหัส OTP
+                <input
+                  required
+                  inputMode="numeric"
+                  maxLength={4}
+                  placeholder="กรอกรหัส OTP 4 หลัก"
+                  type="text"
+                  value={otp}
+                  onChange={numericInput(setOtp)}
+                  className="h-14 w-full rounded bg-white px-4 text-center text-base text-zinc-900 outline-none placeholder:text-zinc-400 focus:ring-2 focus:ring-[#4b9b32]"
+                />
+              </label>
 
-                            <div className="space-y-2">
-                                <label className="text-sm text-default-500">รหัสความปลอดภัย</label>
-                                <div className="bg-default-100 p-2 rounded-lg flex items-center justify-center border-2 border-dashed border-default-300">
-                                    <span className="text-3xl font-mono font-bold tracking-widest text-default-700 line-through decoration-wavy decoration-default-400">
-                                        358375
-                                    </span>
-                                </div>
-                                <Input
-                                    isRequired
-                                    color="success"
-                                    label="กรอกตัวเลขด้านบน"
-                                    placeholder="กรอกตัวเลขด้านบน"
-                                    type="text"
-                                    inputMode="numeric"
-                                    maxLength={6}
-                                    variant="bordered"
-                                    value={captcha}
-                                    onValueChange={(value) => {
-                                        if (/^\d*$/.test(value)) setCaptcha(value);
-                                    }}
-                                />
-                            </div>
+              <label className="flex flex-col gap-1 text-base font-medium text-[#f3f3f3]">
+                รหัสผ่านใหม่
+                <span className="relative">
+                  <input
+                    required
+                    placeholder="รหัสผ่านใหม่"
+                    type={isPasswordVisible ? "text" : "password"}
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                    className="h-14 w-full rounded bg-white px-4 pr-14 text-center text-base text-zinc-900 outline-none placeholder:text-zinc-400 focus:ring-2 focus:ring-[#4b9b32]"
+                  />
+                  <button
+                    type="button"
+                    aria-label={isPasswordVisible ? "ซ่อนรหัสผ่าน" : "แสดงรหัสผ่าน"}
+                    aria-pressed={isPasswordVisible}
+                    onClick={() => setIsPasswordVisible((visible) => !visible)}
+                    className="absolute inset-y-0 right-0 flex w-14 items-center justify-center text-zinc-500 hover:text-zinc-800 focus:outline-none focus-visible:text-[#348424]"
+                  >
+                    <PasswordToggleIcon visible={isPasswordVisible} />
+                  </button>
+                </span>
+              </label>
 
-                            <Button
-                                className="w-full font-semibold text-white mt-2"
-                                size="lg"
-                                radius="sm"
-                                color="success"
-                                isDisabled={phone.length === 0 || captcha.length === 0}
-                                onPress={() => {
-                                    setStep(1);
-                                    setTimeLeft(30);
-                                    setCanResend(false);
-                                    setResendCount(0);
-                                }}
-                            >
-                                ถัดไป
-                            </Button>
-                        </>
-                    ) : (
-                        <>
-                            <div className="flex flex-col items-center gap-2 w-full">
-                                <InputOtp length={4} value={otp} onValueChange={setOtp} />
-                                <div className="text-small text-default-500">
-                                    OTP value: <span className="text-md font-medium">{otp}</span>
-                                </div>
-                                {resendCount > 0 && (
-                                    <div className="text-small text-danger font-medium">
-                                        ขอรหัสผ่านไปแล้ว {resendCount}/3
-                                    </div>
-                                )}
-                                <Button
-                                    isDisabled={!canResend || resendCount >= 3}
-                                    variant="light"
-                                    size="sm"
-                                    className="text-default-500"
-                                    onPress={handleResendOtp}
-                                >
-                                    {canResend ? "ไม่ได้รับรหัส OTP" : `ขอรหัสใหม่ otp (${timeLeft})`}
-                                </Button>
-                            </div>
+              <label className="flex flex-col gap-1 text-base font-medium text-[#f3f3f3]">
+                ยืนยันรหัสผ่านใหม่
+                <span className="relative">
+                  <input
+                    required
+                    placeholder="ยืนยันรหัสผ่านใหม่"
+                    type={isConfirmPasswordVisible ? "text" : "password"}
+                    value={confirmPassword}
+                    onChange={(event) => setConfirmPassword(event.target.value)}
+                    className="h-14 w-full rounded bg-white px-4 pr-14 text-center text-base text-zinc-900 outline-none placeholder:text-zinc-400 focus:ring-2 focus:ring-[#4b9b32]"
+                  />
+                  <button
+                    type="button"
+                    aria-label={isConfirmPasswordVisible ? "ซ่อนรหัสผ่าน" : "แสดงรหัสผ่าน"}
+                    aria-pressed={isConfirmPasswordVisible}
+                    onClick={() => setIsConfirmPasswordVisible((visible) => !visible)}
+                    className="absolute inset-y-0 right-0 flex w-14 items-center justify-center text-zinc-500 hover:text-zinc-800 focus:outline-none focus-visible:text-[#348424]"
+                  >
+                    <PasswordToggleIcon visible={isConfirmPasswordVisible} />
+                  </button>
+                </span>
+              </label>
 
-                            <Input
-                                isRequired
-                                color="success"
-                                label="รหัสผ่านใหม่"
-                                placeholder="รหัสผ่านใหม่"
-                                variant="bordered"
-                                endContent={
-                                    <button
-                                        className="focus:outline-none"
-                                        type="button"
-                                        onClick={togglePasswordVisibility}
-                                    >
-                                        {isPasswordVisible ? (
-                                            <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                                        ) : (
-                                            <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                                        )}
-                                    </button>
-                                }
-                                type={isPasswordVisible ? "text" : "password"}
-                                value={password}
-                                onValueChange={setPassword}
-                            />
-
-                            <Input
-                                isRequired
-                                color="success"
-                                label="ยืนยันรหัสผ่าน"
-                                placeholder="ยืนยันรหัสผ่าน"
-                                variant="bordered"
-                                endContent={
-                                    <button
-                                        className="focus:outline-none"
-                                        type="button"
-                                        onClick={toggleConfirmPasswordVisibility}
-                                    >
-                                        {isConfirmPasswordVisible ? (
-                                            <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                                        ) : (
-                                            <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                                        )}
-                                    </button>
-                                }
-                                type={isConfirmPasswordVisible ? "text" : "password"}
-                                value={confirmPassword}
-                                onValueChange={setConfirmPassword}
-                            />
-
-                            <Button
-                                className="w-full font-semibold text-white mt-2"
-                                size="lg"
-                                radius="sm"
-                                color="success"
-                                isDisabled={otp.length !== 4 || password.length === 0 || confirmPassword.length === 0 || password !== confirmPassword}
-                            >
-                                ยืนยัน
-                            </Button>
-
-                            <Button
-                                className="w-full font-semibold text-default-500"
-                                size="lg"
-                                radius="sm"
-                                variant="light"
-                                onPress={() => setStep(0)}
-                            >
-                                ย้อนกลับ
-                            </Button>
-                        </>
-                    )}
-                </CardBody>
-            </Card>
-        </div>
-    );
+              <button
+                type="submit"
+                disabled={!canReset}
+                className="mt-1 h-12 w-full rounded bg-[#348424] text-base font-medium text-white shadow-md shadow-black/30 transition-colors enabled:hover:bg-[#3f972c] disabled:cursor-not-allowed disabled:bg-[#555555] disabled:text-zinc-400"
+              >
+                ยืนยัน
+              </button>
+              <button
+                type="button"
+                onClick={() => setStep("verify")}
+                className="h-10 text-sm text-white underline underline-offset-2 hover:text-[#8bd373]"
+              >
+                ย้อนกลับ
+              </button>
+            </form>
+          )}
+        </section>
+      </div>
+    </main>
+  );
 }
